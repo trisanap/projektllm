@@ -2,7 +2,7 @@
 
 > A self-hosted, team-focused AI workspace. Organize knowledge, manage projects, and chat with your documents — powered by any OpenAI-compatible LLM provider.
 
-![ProjektLLM Screenshot](docs/screenshot.png)
+![ProjektLLM Screenshot](docs/GUI.png)
 
 ---
 
