@@ -1,0 +1,11 @@
+node_modules/
+*.db
+backend/static/
+backend/uploads/
+__pycache__/
+*.pyc
+.env
+ref/
+skills/halal-audit/
+fill_excel.py
+*.xlsx

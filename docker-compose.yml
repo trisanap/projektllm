@@ -1,0 +1,13 @@
+services:
+  projektllm:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/projektllm.db:/app/backend/projektllm.db
+      - ./backend/uploads:/app/backend/uploads
+    environment:
+      - ADMIN_USERNAME=${ADMIN_USERNAME:-admin}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET}
+    restart: unless-stopped

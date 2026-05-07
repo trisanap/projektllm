@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ProjektLLM</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23f0984b'/%3E%3Cstop offset='1' stop-color='%23d4652b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='6' y='6' width='108' height='108' rx='28' fill='url(%23g)'/%3E%3Cg transform='translate(24 24) scale(3)' fill='white'%3E%3Cpath d='M3 7C3 5.34 4.34 4 6 4h3.5L11 5.6h7c1.66 0 3 1.34 3 3v.9H3Z' opacity='.78'/%3E%3Cpath d='M3 8.6c0-1.66 1.34-3 3-3h12c1.66 0 3 1.34 3 3V18c0 1.66-1.34 3-3 3H6c-1.66 0-3-1.34-3-3Z'/%3E%3Crect x='6.4' y='9.4' width='11.2' height='9.2' rx='1.6' fill='white' opacity='.94'/%3E%3Cg transform='translate(12 14)' stroke='%23d4652b' stroke-width='1.5' stroke-linecap='round'%3E%3Cline x1='0' y1='-3' x2='0' y2='3'/%3E%3Cline x1='-3' y1='0' x2='3' y2='0'/%3E%3Cline x1='-2.1' y1='-2.1' x2='2.1' y2='2.1' opacity='.55'/%3E%3Cline x1='-2.1' y1='2.1' x2='2.1' y2='-2.1' opacity='.55'/%3E%3Ccircle cx='0' cy='0' r='.9' fill='%23d4652b'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: oklch(0.985 0.004 80);
+    --bg-2: oklch(0.965 0.006 80);
+    --bg-3: oklch(0.945 0.008 80);
+    --surface: oklch(1 0 0);
+    --surface-2: oklch(0.98 0.004 80);
+    --line: oklch(0.91 0.008 80);
+    --line-2: oklch(0.86 0.01 80);
+    --ink: oklch(0.22 0.015 260);
+    --ink-2: oklch(0.42 0.012 260);
+    --ink-3: oklch(0.62 0.01 260);
+    --accent: oklch(0.68 0.18 35);
+    --accent-soft: oklch(0.94 0.04 35);
+    --accent-ink: oklch(0.42 0.18 35);
+    --good: oklch(0.66 0.14 155);
+    --good-soft: oklch(0.94 0.04 155);
+    --warn: oklch(0.78 0.14 80);
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 16px;
+    --r-xl: 22px;
+    --shadow-sm: 0 1px 2px oklch(0.2 0.01 260 / 0.04), 0 1px 1px oklch(0.2 0.01 260 / 0.03);
+    --shadow-md: 0 4px 12px oklch(0.2 0.01 260 / 0.06), 0 2px 4px oklch(0.2 0.01 260 / 0.04);
+    --shadow-lg: 0 12px 32px oklch(0.2 0.01 260 / 0.10), 0 4px 8px oklch(0.2 0.01 260 / 0.06);
+    --row-h: 36px;
+    --pad: 16px;
+  }
+  html[data-theme="dark"] {
+    --bg: oklch(0.18 0.01 260);
+    --bg-2: oklch(0.215 0.012 260);
+    --bg-3: oklch(0.245 0.014 260);
+    --surface: oklch(0.225 0.012 260);
+    --surface-2: oklch(0.255 0.014 260);
+    --line: oklch(0.32 0.014 260);
+    --line-2: oklch(0.40 0.016 260);
+    --ink: oklch(0.96 0.005 80);
+    --ink-2: oklch(0.78 0.008 80);
+    --ink-3: oklch(0.58 0.01 260);
+    --accent: oklch(0.74 0.16 35);
+    --accent-soft: oklch(0.32 0.08 35);
+    --accent-ink: oklch(0.86 0.14 35);
+    --good: oklch(0.74 0.13 155);
+    --good-soft: oklch(0.30 0.06 155);
+    --warn: oklch(0.82 0.13 80);
+    --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.30), 0 1px 1px oklch(0 0 0 / 0.20);
+    --shadow-md: 0 4px 14px oklch(0 0 0 / 0.40), 0 2px 4px oklch(0 0 0 / 0.25);
+    --shadow-lg: 0 12px 40px oklch(0 0 0 / 0.50), 0 4px 12px oklch(0 0 0 / 0.30);
+  }
+  html[data-density="compact"] {
+    --row-h: 30px;
+    --pad: 12px;
+  }
+  html[data-density="spacious"] {
+    --row-h: 42px;
+    --pad: 20px;
+  }
+  * { box-sizing: border-box; }
+  html, body, #root { height: 100%; }
+  body {
+    margin: 0;
+    font-family: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow: hidden;
+  }
+  .mono { font-family: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace; font-feature-settings: "ss01", "cv01"; }
+  button { font-family: inherit; cursor: pointer; border: 0; background: transparent; color: inherit; padding: 0; }
+  input, textarea { font-family: inherit; color: inherit; }
+  ::selection { background: var(--accent-soft); color: var(--accent-ink); }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 999px; border: 2px solid transparent; background-clip: content-box; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--line-2); border: 2px solid transparent; background-clip: content-box; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  @keyframes blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+  @keyframes shimmer { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes pop { 0% { transform: scale(0.92); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+  @keyframes slideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
