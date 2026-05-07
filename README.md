@@ -21,7 +21,8 @@ Think of it as **Nextcloud, but for LLM workflows**:
 ## Features
 
 - **Project workspaces** — organize chats under named projects with descriptions and system instructions
-- **Knowledge base** — attach files (PDF, MD, CSV, TXT) to projects; content is injected as context
+- **Knowledge base** — attach files (PDF, DOCX, XLSX, MD, CSV, TXT) to projects; content is injected as context
+- **Skill system** — built-in document tools for generating and processing DOCX, XLSX, and PDF files
 - **Multi-provider support** — switch between any OpenAI-compatible LLM provider via admin settings
 - **Team management** — admin-only user creation, no public registration
 - **Per-user chat history** — each user's conversations are isolated
@@ -36,11 +37,11 @@ Think of it as **Nextcloud, but for LLM workflows**:
 | Layer | Technology |
 |---|---|
 | Backend | Python + FastAPI |
-| Frontend | React + Tailwind CSS |
+| Frontend | React |
 | Database | SQLite |
 | Auth | JWT (username + password) |
-| File storage | Flat files |
-| Deployment | Cloudflare Tunnel (recommended) |
+| File storage | SQLite + filesystem |
+| Deployment | Cloudflare Tunnel or Docker |
 
 ---
 
@@ -66,32 +67,29 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 # Copy and configure environment
-cp .env.example .env
-# Edit .env with your API key and settings
+cp ../.env.example .env
+# Edit .env with your admin password and JWT secret
 
-# Frontend setup
-cd ../frontend
+# Frontend build (from repo root)
+cd ..
 npm install
 npm run build
 
 # Start the server
-cd ../backend
-uvicorn main:app --host 0.0.0.0 --port 8000
+uvicorn backend.main:app --host 0.0.0.0 --port 8000
 ```
 
 ### First Run
 
-On first run, an admin account is created using the credentials in your `.env` file:
+On first run, an admin account is auto-created from your `.env`:
 
 ```env
 ADMIN_USERNAME=admin
-ADMIN_PASSWORD=yourpassword
-API_KEY=your_api_key_here
-API_BASE_URL=https://api.deepseek.com/v1
-DEFAULT_MODEL=deepseek-v4-flash
+ADMIN_PASSWORD=your-secure-admin-password
+JWT_SECRET=generate-a-random-secret
 ```
 
-Log in as admin to create user accounts and configure provider settings.
+Log in as admin, then go to **Settings → Provider** to configure your LLM API key, base URL, and default model. From there you can also create user accounts via the admin panel.
 
 ---
 
@@ -99,10 +97,9 @@ Log in as admin to create user accounts and configure provider settings.
 
 Only the admin account can:
 
-- **Create / remove users** — via the admin panel (`/admin`)
-- **Configure API provider** — set base URL, API key, available models
-- **View usage stats** — token consumption per user and project
-- **Manage global settings** — context limits, file upload limits, etc.
+- **Create / remove users** — via the admin panel (gear icon → Admin)
+- **Configure API provider** — set base URL, API key, model list via Settings
+- **Manage global settings** — theme, density, accents via Tweaks panel
 
 Regular users can:
 - Create and manage their own projects
@@ -154,13 +151,14 @@ Any OpenAI-compatible API endpoint works. Tested with:
 
 ## Roadmap
 
-- [ ] Admin panel UI
-- [ ] Per-user token usage dashboard
+- [x] Admin panel UI
+- [x] Docker compose setup
+- [x] Mobile responsive layout
 - [ ] Shared project knowledge (team-wide files)
-- [ ] Markdown artifact viewer
 - [ ] RAG / vector search for large knowledge bases
-- [ ] Docker compose setup
-- [ ] Mobile responsive layout
+- [ ] Per-user token usage dashboard
+- [ ] Web search integration
+- [ ] OAuth / SSO support
 
 ---
 
