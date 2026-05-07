@@ -154,10 +154,10 @@ Any OpenAI-compatible API endpoint works. Tested with:
 - [x] Admin panel UI
 - [x] Docker compose setup
 - [x] Mobile responsive layout
-- [ ] Shared project knowledge (team-wide files)
+- [x] Shared project knowledge (team-wide files)
 - [ ] RAG / vector search for large knowledge bases
 - [ ] Per-user token usage dashboard
-- [ ] Web search integration
+- [x] Web search integration
 - [ ] OAuth / SSO support
 
 ---
