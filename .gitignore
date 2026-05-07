@@ -9,3 +9,15 @@ ref/
 skills/halal-audit/
 fill_excel.py
 *.xlsx
+
+# Redundant root-level copies (actual sources in src/)
+/app.jsx
+/chat.jsx
+/icons.jsx
+/knowledge.jsx
+/project-view.jsx
+/sidebar.jsx
+/tweaks-panel.jsx
+/data.jsx
+/ProjektLLM.html
+/string-theory.md
